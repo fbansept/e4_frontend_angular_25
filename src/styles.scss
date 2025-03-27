@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-snack-bar-container {
+
+  &.valid {
+    --mdc-snackbar-container-color: #309330;
+  }
+
+  &.warning {
+    --mdc-snackbar-container-color: #ff8242;
+  }
+
+  &.error {
+    --mdc-snackbar-container-color: #973141;
+  }
+}

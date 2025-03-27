@@ -1,0 +1,70 @@
+<div class="container">
+
+  <form [formGroup]="formulaire" (ngSubmit)="onAjoutProduit()">
+
+    <mat-form-field>
+      <mat-label>Nom</mat-label>
+      <input formControlName="nom" matInput placeholder="Ex. Marteau">
+      <mat-error>Le nom est obligatoire</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Code</mat-label>
+      <input formControlName="code" matInput placeholder="Ex. MART147">
+      @if(formulaire.get("code")?.hasError("required")) {
+        <mat-error>Le code est obligatoire</mat-error>
+      } @else if (formulaire.get("code")?.hasError("minlength")) {
+        <mat-error>Le code doit avoir au moins
+          {{ formulaire.get("code")?.getError('minlength').requiredLength }}
+          caractères</mat-error>
+      } @else if (formulaire.get("code")?.hasError("maxlength")) {
+        <mat-error>Le code doit avoir au maximum
+          {{ formulaire.get("code")?.getError('maxlength').requiredLength }}
+          caractères</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Prix</mat-label>
+      <input formControlName="prix"  matInput type="number">
+      @if(formulaire.get("prix")?.hasError("required")) {
+        <mat-error>Le prix est obligatoire</mat-error>
+      } @else if (formulaire.get("prix")?.hasError("min")) {
+        <mat-error>Le prix doit être positif</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea formControlName="description"  matInput placeholder="Ex. Un super marteau"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Etat</mat-label>
+      <mat-select formControlName="etat" [compareWith]="compareWithId">
+        @for (etat of etats; track $index) {
+          <mat-option [value]="etat">
+            {{etat.designation}}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Etiquettes</mat-label>
+      <mat-select formControlName="etiquettes" multiple [compareWith]="compareWithId">
+        @for (etiquette of etiquettes; track $index) {
+          <mat-option [value]="etiquette">{{etiquette.designation}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="d-flex">
+      <button mat-raised-button routerLink="/accueil">Annuler</button>
+      <button mat-raised-button type="submit">{{produitEditer ? "Modifier le produit" : "Ajouter le produit"}}</button>
+    </div>
+
+  </form>
+
+
+</div>

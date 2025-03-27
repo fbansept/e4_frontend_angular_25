@@ -1,0 +1,46 @@
+<button mat-raised-button routerLink="/ajout-produit">Nouveau produit</button>
+
+<div class="container">
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+
+    @for (produit of produits; track $index) {
+
+      <div class="mb-4">
+
+        <mat-card appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>
+              {{ produit.nom }} <i>( {{ produit.code }} )</i>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <span class="prix">
+                {{ produit.prix }}€
+              </span>
+
+              @for (etiquette of produit.etiquettes; track $index) {
+               <span class="etiquette">{{etiquette.designation}}</span>
+              }
+            </mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="https://picsum.photos/id/{{produit.id}}/600/400">
+
+          <mat-card-content>
+            <p>
+              {{ produit.description }}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button [routerLink]="['/modifier-produit',produit.id]">Modifier</button>
+            <button mat-button (click)="onSupprimerProduit(produit)">
+              Supprimer
+            </button>
+            <button mat-button>Acheter</button>
+          </mat-card-actions>
+        </mat-card>
+
+      </div>
+    }
+
+  </div>
+</div>
