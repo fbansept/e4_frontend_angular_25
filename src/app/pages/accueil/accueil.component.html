@@ -8,7 +8,7 @@
 
       <div class="mb-4">
 
-        <mat-card appearance="outlined">
+        <mat-card appearance="outlined" [class.mauvais-etat]="produit.etat.designation == 'mauvais'">
           <mat-card-header>
             <mat-card-title>
               {{ produit.nom }} <i>( {{ produit.code }} )</i>
@@ -19,7 +19,9 @@
               </span>
 
               @for (etiquette of produit.etiquettes; track $index) {
-               <span class="etiquette">{{etiquette.designation}}</span>
+               <span class="etiquette" [ngStyle]="{backgroundColor: etiquette.couleur}" >
+                 {{etiquette.designation}}
+               </span>
               }
             </mat-card-subtitle>
           </mat-card-header>

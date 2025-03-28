@@ -4,10 +4,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
 import {NotificationService} from '../../services/notification.service';
+import {NgStyle} from '@angular/common';
 
 @Component({
   selector: 'app-accueil',
-  imports: [MatButtonModule, MatCardModule, RouterLink],
+  imports: [MatButtonModule, MatCardModule, RouterLink, NgStyle],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.scss'
 })
@@ -22,9 +23,9 @@ export class AccueilComponent {
   }
 
   recupererProduits() {
-    this.http
-      .get<Produit[]>("http://localhost:8080/produits")
-      .subscribe(produits => this.produits = produits)
+      this.http
+        .get<Produit[]>("http://localhost:8080/produits")
+        .subscribe(produits => this.produits = produits)
   }
 
   onSupprimerProduit(produit: Produit) {
